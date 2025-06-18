@@ -50,4 +50,8 @@ public class ChallengeId {
     @OneToMany(mappedBy = "challengeId", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<ChallengeInfo> challengeInfos = new ArrayList<>();
+
+    public ChallengeId(Long id) {
+        this.id = id;
+    }
 }

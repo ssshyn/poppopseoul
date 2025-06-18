@@ -7,6 +7,7 @@ import com.seoulmate.poppopseoul.domain.attraction.dto.AttractionResponse;
 import com.seoulmate.poppopseoul.domain.attraction.dto.AttractionUpdateRequest;
 import com.seoulmate.poppopseoul.domain.attraction.service.AttractionService;
 import com.seoulmate.poppopseoul.exception.ErrorResponse;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -49,27 +50,65 @@ public class AttractionController {
 
     private final AttractionService attractionService;
 
+    @Operation(summary = "목록 조회", description = "목록 조회")
     @GetMapping
     public ResponseEntity<List<AttractionResponse>> getList() {
         return ResponseEntity.ok(new ArrayList<>());
     }
 
+    @Operation(summary = "관광지 상세 조회", description = "관광지 상세 조회")
+    @ApiResponses({
+            @ApiResponse(responseCode = "400", description = "BAD REQUEST", content = @Content(
+                    mediaType = "application/json",
+                    examples = {
+                            @ExampleObject(name = "R0001", description = "관광지 정보를 조회할 수 없습니다. 다시 확인해 주세요.",
+                                    value = """
+                                            {"code": "R0001", "message": "관광지 정보를 조회할 수 없습니다. 다시 확인해 주세요."}
+                                            """)
+                    }, schema = @Schema(implementation = ErrorResponse.class)
+            ))
+    })
     @GetMapping("/{id}")
     public ResponseEntity<AttractionResponse> getDetail(@PathVariable(value = "id") Long id,
                                                         @RequestParam(value = "languageCode") LanguageCode languageCode) {
         return ResponseEntity.ok(attractionService.getDetail(id, languageCode));
     }
 
+    @Operation(summary = "관광지 등록", description = "관광지 등록")
     @PostMapping
     public ResponseEntity<ProgressResponse<AttractionResponse>> saveAttraction(@RequestBody AttractionCreateRequest condition) {
         return ResponseEntity.ok(attractionService.createAttraction(condition));
     }
 
+    @Operation(summary = "관광지 수정", description = "관광지 수정")
+    @ApiResponses({
+            @ApiResponse(responseCode = "400", description = "BAD REQUEST", content = @Content(
+                    mediaType = "application/json",
+                    examples = {
+                            @ExampleObject(name = "R0001", description = "관광지 정보를 조회할 수 없습니다. 다시 확인해 주세요.",
+                                    value = """
+                                            {"code": "R0001", "message": "관광지 정보를 조회할 수 없습니다. 다시 확인해 주세요."}
+                                            """)
+                    }, schema = @Schema(implementation = ErrorResponse.class)
+            ))
+    })
     @PutMapping
     public ResponseEntity<ProgressResponse<AttractionResponse>> updateAttraction(@RequestBody AttractionUpdateRequest condition) {
         return ResponseEntity.ok(attractionService.updateAttraction(condition));
     }
 
+    @Operation(summary = "관광지 삭제", description = "관광지 삭제")
+    @ApiResponses({
+            @ApiResponse(responseCode = "400", description = "BAD REQUEST", content = @Content(
+                    mediaType = "application/json",
+                    examples = {
+                            @ExampleObject(name = "R0001", description = "관광지 정보를 조회할 수 없습니다. 다시 확인해 주세요.",
+                                    value = """
+                                            {"code": "R0001", "message": "관광지 정보를 조회할 수 없습니다. 다시 확인해 주세요."}
+                                            """)
+                    }, schema = @Schema(implementation = ErrorResponse.class)
+            ))
+    })
     @DeleteMapping("/{id}")
     public ResponseEntity<ProgressResponse<Long>> deleteAttraction(@PathVariable(value = "id") Long id) {
         return ResponseEntity.ok(attractionService.deleteAttraction(id));
