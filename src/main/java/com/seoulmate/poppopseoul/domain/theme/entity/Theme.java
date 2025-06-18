@@ -1,7 +1,7 @@
 package com.seoulmate.poppopseoul.domain.theme.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.seoulmate.poppopseoul.domain.challenge.entity.Challenge;
+import com.seoulmate.poppopseoul.domain.challenge.entity.ChallengeId;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
@@ -36,5 +36,5 @@ public class Theme {
 
     @OneToMany(mappedBy = "theme", cascade = CascadeType.ALL)
     @JsonManagedReference
-    private List<Challenge> challenges = new ArrayList<>();
+    private List<ChallengeId> challenges = new ArrayList<>();
 }

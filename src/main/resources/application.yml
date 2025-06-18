@@ -17,6 +17,10 @@ spring:
     hibernate:
       ddl-auto: create-drop  # option type: create, create-drop, update, validate, none
     show-sql: true
+  jwt:
+    secret: api-poppopseoul-jwt-authentication-sha256-login-secret-key
+    accessTokenExpiration: 900000
+    refreshTokenExpiration: 1209600000
 swagger:
   server:
     url: http://localhost:8081
@@ -29,3 +33,11 @@ logging:
         type:
           descriptor:
             sql: trace
+google:
+  oauth:
+    client-ids:
+      - 222259160589-9s3a5o54ur0ebk8pnvpoch2aj52p8t2m.apps.googleusercontent.com
+      - 222259160589-qrilqthr6njluafs3inq3lan0mrikp3u.apps.googleusercontent.com
+facebook:
+  oauth:
+    url: https://graph.facebook.com/me?fields=id,name,email&access_token=

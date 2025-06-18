@@ -29,7 +29,15 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'		// swagger
-	implementation 'com.auth0:java-jwt:3.18.2'
+
+	// jwt
+	implementation 'io.jsonwebtoken:jjwt-api:0.12.3'
+	implementation 'io.jsonwebtoken:jjwt-impl:0.12.3'
+	implementation 'io.jsonwebtoken:jjwt-jackson:0.12.3'
+	implementation 'com.google.http-client:google-http-client-jackson2:1.43.3'
+
+	// snsLogin
+	implementation 'com.google.api-client:google-api-client:1.34.1' //google
 
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.mysql:mysql-connector-j'

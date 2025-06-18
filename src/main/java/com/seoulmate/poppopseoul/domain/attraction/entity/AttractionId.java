@@ -2,7 +2,7 @@ package com.seoulmate.poppopseoul.domain.attraction.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.seoulmate.poppopseoul.domain.attraction.enumeration.AttractionDetailCode;
-import com.seoulmate.poppopseoul.domain.challenge.entity.Challenge;
+import com.seoulmate.poppopseoul.domain.challenge.entity.ChallengeId;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
@@ -35,5 +35,5 @@ public class AttractionId {
     private List<AttractionInfo> attractionInfos = new ArrayList<>();
 
     @ManyToMany(mappedBy = "attractionIds")
-    private List<Challenge> challenges = new ArrayList<>();
+    private List<ChallengeId> challenges = new ArrayList<>();
 }
