@@ -14,7 +14,6 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Builder
 @DynamicUpdate
 @Table(name = "theme")
 public class Theme {

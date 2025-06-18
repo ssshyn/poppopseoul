@@ -15,7 +15,6 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Builder
 @DynamicUpdate
 @Table(name = "attraction_id")
 public class AttractionId {
@@ -30,7 +29,7 @@ public class AttractionId {
     @Enumerated(EnumType.STRING)
     private List<AttractionDetailCode> attractionDetailCodes;
 
-    @OneToMany(mappedBy = "attractionId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "attractionId", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<AttractionInfo> attractionInfos = new ArrayList<>();
 

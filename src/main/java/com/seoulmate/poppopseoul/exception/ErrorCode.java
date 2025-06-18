@@ -43,8 +43,8 @@ public enum ErrorCode {
     /**
      * 서버 에러
      */
-    SERVER_ERROR(500, "SY001", "알 수 없는 에러가 발생했습니다. 서버에 문의해주세요."),
     INVALID_DATA_FORMAT(400, "SY002", "잘못된 요청 데이터입니다."),
+    SERVER_ERROR(500, "SY001", "알 수 없는 에러가 발생했습니다. 서버에 문의해주세요."),
     DUPLICATED_DATA(409, "SY003", "데이터 중복이 발생했습니다. 서버에 문의해주세요.");
 
     private final int status;

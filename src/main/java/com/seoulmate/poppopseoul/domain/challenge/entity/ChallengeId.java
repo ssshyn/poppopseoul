@@ -18,7 +18,6 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Builder
 @DynamicUpdate
 @Table(name = "challenge_id")
 public class ChallengeId {

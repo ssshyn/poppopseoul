@@ -53,7 +53,10 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests((auth) -> auth.anyRequest().authenticated())
+                .authorizeHttpRequests((auth) -> auth
+                        .requestMatchers("/comment/**").authenticated()
+                        .requestMatchers("/user/**").authenticated()
+                        .anyRequest().permitAll())
                 .addFilterBefore(new JWTFilter(jwtUtil, objectMapper), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

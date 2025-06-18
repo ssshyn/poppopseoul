@@ -24,11 +24,14 @@ public class JWTFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+
         try {
             String authorization = request.getHeader("Authorization");
 
             if (authorization == null || !authorization.startsWith("Bearer ")) {
-                throw new ErrorException(ErrorCode.INVALID_TOKEN);
+//                throw new ErrorException(ErrorCode.INVALID_TOKEN);
+                filterChain.doFilter(request, response);
+                return;
             }
 
             String accessToken = authorization.split(" ")[1];

@@ -2,6 +2,7 @@ package com.seoulmate.poppopseoul.domain.attraction.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.seoulmate.poppopseoul.common.enumeration.LanguageCode;
+import com.seoulmate.poppopseoul.domain.attraction.dto.AttractionUpdateRequest;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
@@ -40,15 +41,6 @@ public class AttractionInfo {
     private Double locationY;
 
     @Column
-    private String operDay;
-
-    @Column
-    private String operOpenTime;
-
-    @Column
-    private String operCloseTime;
-
-    @Column
     private String homepageUrl;
 
     @Column
@@ -56,9 +48,6 @@ public class AttractionInfo {
 
     @Column
     private String subway;
-
-    @Column
-    private String freeYn;
 
     @Column
     private String imageUrl;
