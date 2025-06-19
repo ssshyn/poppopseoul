@@ -3,6 +3,7 @@ package com.seoulmate.poppopseoul.domain.challenge.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.seoulmate.poppopseoul.domain.attraction.entity.AttractionId;
+import com.seoulmate.poppopseoul.domain.challenge.dto.ChallengeCreateRequest;
 import com.seoulmate.poppopseoul.domain.challenge.enumeration.DisplayRank;
 import com.seoulmate.poppopseoul.domain.challenge.enumeration.Level;
 import com.seoulmate.poppopseoul.domain.theme.entity.Theme;
@@ -53,5 +54,15 @@ public class ChallengeId {
 
     public ChallengeId(Long id) {
         this.id = id;
+    }
+
+    public static ChallengeId toEntity(ChallengeCreateRequest condition, Theme theme, List<AttractionId> attractionIds) {
+        ChallengeId challengeId = new ChallengeId();
+        challengeId.setImageUrl(condition.getImageUrl());
+        challengeId.setDisplayRank(condition.getDisplayRank());
+        challengeId.setLevel(condition.getLevel());
+        challengeId.setTheme(theme);
+        challengeId.setAttractionIds(attractionIds);
+        return challengeId;
     }
 }
