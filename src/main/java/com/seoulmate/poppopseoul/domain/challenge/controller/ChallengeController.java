@@ -6,7 +6,10 @@ import com.seoulmate.poppopseoul.domain.challenge.dto.ChallengeCreateRequest;
 import com.seoulmate.poppopseoul.domain.challenge.dto.ChallengeResponse;
 import com.seoulmate.poppopseoul.domain.challenge.dto.ChallengeUpdateRequest;
 import com.seoulmate.poppopseoul.domain.challenge.service.ChallengeService;
+import com.seoulmate.poppopseoul.exception.ErrorCode;
 import com.seoulmate.poppopseoul.exception.ErrorResponse;
+import com.seoulmate.poppopseoul.exception.annotation.ApiErrorCodeExample;
+import com.seoulmate.poppopseoul.exception.annotation.ApiErrorCodeExamples;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -51,26 +54,7 @@ public class ChallengeController {
     private final ChallengeService challengeService;
 
     @Operation(summary = "챌린지 상세조회", description = "챌린지 상세조회")
-    @ApiResponses({
-            @ApiResponse(responseCode = "400", description = "BAD REQUEST", content = @Content(
-                    mediaType = "application/json",
-                    examples = {
-                            @ExampleObject(name = "R0002", description = "챌린지 정보를 조회할 수 없습니다. 다시 확인해 주세요.",
-                                    value = """
-                                            {"code": "R0002", "message": "챌린지 정보를 조회할 수 없습니다. 다시 확인해 주세요."}
-                                            """)
-                    }, schema = @Schema(implementation = ErrorResponse.class)
-            )),
-            @ApiResponse(responseCode = "401", description = "USER_NOT_FOUND", content = @Content(
-                    mediaType = "application/json",
-                    examples = {
-                            @ExampleObject(name = "U0002", description = "존재하지 않는 유저입니다.",
-                                    value = """
-                                            {"code": "U0002", "message": "존재하지 않는 유저입니다."}
-                                            """)
-                    }, schema = @Schema(implementation = ErrorResponse.class)
-            ))
-    })
+    @ApiErrorCodeExamples({ErrorCode.CHALLENGE_NOT_FOUND, ErrorCode.USER_NOT_FOUND})
     @GetMapping
     public ResponseEntity<List<ChallengeResponse>> getList() {
         return ResponseEntity.ok(new ArrayList<>());
@@ -83,75 +67,23 @@ public class ChallengeController {
     }
 
     @Operation(summary = "챌린지 등록", description = "챌린지 등록")
-    @ApiResponses({
-            @ApiResponse(responseCode = "400", description = "BAD REQUEST", content = @Content(
-                    mediaType = "application/json",
-                    examples = {
-                            @ExampleObject(name = "R0001", description = "관광지 정보를 조회할 수 없습니다. 다시 확인해 주세요.",
-                                    value = """
-                                            {"code": "R0001", "message": "관광지 정보를 조회할 수 없습니다. 다시 확인해 주세요."}
-                                            """),
-                            @ExampleObject(name = "R0003", description = "챌린지 테마 정보를 조회할 수 없습니다. 다시 확인해 주세요.",
-                                    value = """
-                                            {"code": "R0003", "message": "테마 정보를 조회할 수 없습니다. 다시 확인해 주세요."}
-                                            """),
-                            @ExampleObject(name = "R0004", description = "필수값이 입력되지 않았습니다. 다시 확인해 주세요.",
-                                    value = """
-                                            {"code": "R0004", "message": "필수값이 입력되지 않았습니다. 다시 확인해 주세요."}
-                                            """),
-                            @ExampleObject(name = "R0006", description = "파라미터 최대 값을 초과하였습니다.",
-                                    value = """
-                                            {"code": "R0006", "message": "파라미터 최대 값을 초과하였습니다."}
-                                            """)
-                    }, schema = @Schema(implementation = ErrorResponse.class)
-            ))
-    })
+    @ApiErrorCodeExamples({ErrorCode.ATTRACTION_NOT_FOUND, ErrorCode.CHALLENGE_THEME_NOT_FOUND,
+            ErrorCode.REQUIRED_PARAMETER, ErrorCode.MAX_SIZE})
     @PostMapping
     public ResponseEntity<ProgressResponse<ChallengeResponse>> create(@RequestBody ChallengeCreateRequest condition) {
         return ResponseEntity.ok(challengeService.create(condition));
     }
 
     @Operation(summary = "챌린지 수정", description = "챌린지 수정")
-    @ApiResponses({
-            @ApiResponse(responseCode = "400", description = "BAD REQUEST", content = @Content(
-                    mediaType = "application/json",
-                    examples = {
-                            @ExampleObject(name = "R0001", description = "관광지 정보를 조회할 수 없습니다. 다시 확인해 주세요.",
-                                    value = """
-                                            {"code": "R0001", "message": "관광지 정보를 조회할 수 없습니다. 다시 확인해 주세요."}
-                                            """),
-                            @ExampleObject(name = "R0003", description = "챌린지 테마 정보를 조회할 수 없습니다. 다시 확인해 주세요.",
-                                    value = """
-                                            {"code": "R0003", "message": "테마 정보를 조회할 수 없습니다. 다시 확인해 주세요."}
-                                            """),
-                            @ExampleObject(name = "R0004", description = "필수값이 입력되지 않았습니다. 다시 확인해 주세요.",
-                                    value = """
-                                            {"code": "R0004", "message": "필수값이 입력되지 않았습니다. 다시 확인해 주세요."}
-                                            """),
-                            @ExampleObject(name = "R0006", description = "파라미터 최대 값을 초과하였습니다.",
-                                    value = """
-                                            {"code": "R0006", "message": "파라미터 최대 값을 초과하였습니다."}
-                                            """)
-                    }, schema = @Schema(implementation = ErrorResponse.class)
-            ))
-    })
+    @ApiErrorCodeExamples({ErrorCode.ATTRACTION_NOT_FOUND, ErrorCode.CHALLENGE_THEME_NOT_FOUND,
+            ErrorCode.REQUIRED_PARAMETER, ErrorCode.MAX_SIZE})
     @PutMapping
     public ResponseEntity<ProgressResponse<ChallengeResponse>> update(@RequestBody ChallengeUpdateRequest condition) {
         return ResponseEntity.ok(challengeService.update(condition));
     }
 
     @Operation(summary = "챌린지 삭제", description = "챌린지 삭제")
-    @ApiResponses({
-            @ApiResponse(responseCode = "400", description = "BAD REQUEST", content = @Content(
-                    mediaType = "application/json",
-                    examples = {
-                            @ExampleObject(name = "R0002", description = "챌린지 정보를 조회할 수 없습니다. 다시 확인해 주세요.",
-                                    value = """
-                                            {"code": "R0002", "message": "챌린지 정보를 조회할 수 없습니다. 다시 확인해 주세요."}
-                                            """)
-                    }, schema = @Schema(implementation = ErrorResponse.class)
-            ))
-    })
+    @ApiErrorCodeExample(ErrorCode.CHALLENGE_NOT_FOUND)
     @DeleteMapping("/{id}")
     public ResponseEntity<ProgressResponse<Long>> delete(@PathVariable(value = "id") Long id) {
         return ResponseEntity.ok(challengeService.delete(id));
