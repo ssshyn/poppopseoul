@@ -1,10 +1,14 @@
 package com.seoulmate.poppopseoul.domain.attraction.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.seoulmate.poppopseoul.domain.attraction.dto.AttractionCreateRequest;
 import com.seoulmate.poppopseoul.domain.attraction.enumeration.AttractionDetailCode;
 import com.seoulmate.poppopseoul.domain.challenge.entity.ChallengeId;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.DynamicUpdate;
 
 import java.util.ArrayList;
@@ -22,8 +26,8 @@ public class AttractionId {
     @GeneratedValue
     private Long id;
 
-    @Column(nullable = false)
-    private String originKey;
+//    @Column(nullable = false)
+//    private String originKey;
 
     @ElementCollection
     @Enumerated(EnumType.STRING)
@@ -35,4 +39,10 @@ public class AttractionId {
 
     @ManyToMany(mappedBy = "attractionIds")
     private List<ChallengeId> challenges = new ArrayList<>();
+
+    public static AttractionId toEntity(AttractionCreateRequest condition) {
+        AttractionId attractionId = new AttractionId();
+        attractionId.attractionDetailCodes = condition.getDetailCodes();
+        return attractionId;
+    }
 }

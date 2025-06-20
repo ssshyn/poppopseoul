@@ -19,14 +19,24 @@ import java.util.List;
 public class AttractionCreateRequest {
     @Schema(description = "언어 코드")
     private LanguageCode languageCode;
-    @Schema(description = "관광지명")
+
+    // 관광지 info
+    @Schema(description = "관광지명_국문")
     private String name;
-    @Schema(description = "관광지 설명")
+    @Schema(description = "관광지명_영문")
+    private String nameEng;
+    @Schema(description = "관광지설명_국문")
     private String description;
-    @Schema(description = "관광지 분류")
-    private List<AttractionDetailCode> detailCodes;
-    @Schema(description = "관광지 주소")
+    @Schema(description = "관광지설명_영문")
+    private String descriptionEng;
+    @Schema(description = "교통정보_국문")
+    private String subway;
+    @Schema(description = "교통정보_영문")
+    private String subwayEng;
+    @Schema(description = "관광지주소_국문")
     private String address;
+    @Schema(description = "관광지주소_영문")
+    private String addressEng;
     @Schema(description = "홈페이지 url")
     private String homepageUrl;
     @Schema(description = "X 좌표")
@@ -35,17 +45,12 @@ public class AttractionCreateRequest {
     private Double locationY;
     @Schema(description = "전화번호")
     private String tel;
-    @Schema(description = "교통정보")
-    private String subway;
     @Schema(description = "이미지 url")
     private String imageUrl;
 
-    public AttractionId toEntityId() {
-        AttractionId attractionId = new AttractionId();
-        attractionId.setAttractionDetailCodes(detailCodes);
-        attractionId.setOriginKey("3333");
-        return attractionId;
-    }
+    // 관광지 id
+    @Schema(description = "관광지 분류")
+    private List<AttractionDetailCode> detailCodes;
 
     public AttractionInfo toEntityInfo(AttractionId attractionId) {
         return AttractionInfo.builder()

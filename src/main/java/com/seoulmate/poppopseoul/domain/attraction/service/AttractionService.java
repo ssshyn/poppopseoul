@@ -42,10 +42,11 @@ public class AttractionService {
      */
     @Transactional
     public ProgressResponse<AttractionResponse> createAttraction(AttractionCreateRequest condition) {
-        AttractionId attractionId = attractionIdRepository.save(condition.toEntityId());
-        AttractionInfo attractionInfo = attractionInfoRepository.save(condition.toEntityInfo(attractionId));
+        AttractionId attractionId = attractionIdRepository.save(AttractionId.toEntity(condition));
+        AttractionInfo infoKor = attractionInfoRepository.save(AttractionInfo.toEntity(condition, attractionId, LanguageCode.KOR));
+        AttractionInfo infoEng = attractionInfoRepository.save(AttractionInfo.toEntity(condition, attractionId, LanguageCode.ENG));
 
-        return new ProgressResponse<>(true, new AttractionResponse(attractionId, attractionInfo));
+        return new ProgressResponse<>(true, new AttractionResponse(attractionId, condition.getLanguageCode().isKorean() ? infoKor : infoEng));
     }
 
     /**

@@ -2,7 +2,7 @@ package com.seoulmate.poppopseoul.domain.attraction.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.seoulmate.poppopseoul.common.enumeration.LanguageCode;
-import com.seoulmate.poppopseoul.domain.attraction.dto.AttractionUpdateRequest;
+import com.seoulmate.poppopseoul.domain.attraction.dto.AttractionCreateRequest;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
@@ -56,4 +56,20 @@ public class AttractionInfo {
     @JoinColumn(name = "attraction_id")
     @JsonBackReference
     private AttractionId attractionId;
+
+    public static AttractionInfo toEntity(AttractionCreateRequest condition, AttractionId attractionId, LanguageCode languageCode) {
+        return AttractionInfo.builder()
+                .languageCode(languageCode)
+                .name(languageCode.isKorean() ? condition.getName() : condition.getNameEng())
+                .description(languageCode.isKorean() ? condition.getDescription() : condition.getDescriptionEng())
+                .address(languageCode.isKorean() ? condition.getAddress() : condition.getAddressEng())
+                .locationX(condition.getLocationX())
+                .locationY(condition.getLocationY())
+                .homepageUrl(condition.getHomepageUrl())
+                .tel(condition.getTel())
+                .subway(languageCode.isKorean() ? condition.getSubway() : condition.getSubwayEng())
+                .imageUrl(condition.getImageUrl())
+                .attractionId(attractionId)
+                .build();
+    }
 }
