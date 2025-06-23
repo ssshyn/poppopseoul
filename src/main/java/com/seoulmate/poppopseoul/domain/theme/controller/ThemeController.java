@@ -5,7 +5,9 @@ import com.seoulmate.poppopseoul.common.enumeration.LanguageCode;
 import com.seoulmate.poppopseoul.domain.theme.dto.ThemeCreateRequest;
 import com.seoulmate.poppopseoul.domain.theme.dto.ThemeResponse;
 import com.seoulmate.poppopseoul.domain.theme.service.ThemeService;
+import com.seoulmate.poppopseoul.exception.ErrorCode;
 import com.seoulmate.poppopseoul.exception.ErrorResponse;
+import com.seoulmate.poppopseoul.exception.annotation.ApiErrorCodeExample;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -61,17 +63,7 @@ public class ThemeController {
     }
 
     @Operation(summary = "챌린지 테마 삭제", description = "챌린지 테마 삭제")
-    @ApiResponses({
-            @ApiResponse(responseCode = "400", description = "BAD REQUEST", content = @Content(
-                    mediaType = "application/json",
-                    examples = {
-                            @ExampleObject(name = "R0003", description = "챌린지 테마 정보를 조회할 수 없습니다. 다시 확인해 주세요.",
-                                    value = """
-                                            {"code": "R0003", "message": "테마 정보를 조회할 수 없습니다. 다시 확인해 주세요."}
-                                            """)
-                    }, schema = @Schema(implementation = ErrorResponse.class)
-            ))
-    })
+    @ApiErrorCodeExample(ErrorCode.CHALLENGE_NOT_FOUND)
     @DeleteMapping("/{id}")
     public ResponseEntity<ProgressResponse<Long>> delete(@PathVariable(value = "id") Long id) {
         return ResponseEntity.ok(themeService.delete(id));

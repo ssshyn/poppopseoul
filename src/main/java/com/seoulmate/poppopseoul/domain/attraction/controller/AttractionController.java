@@ -80,17 +80,7 @@ public class AttractionController {
     }
 
     @Operation(summary = "관광지 삭제", description = "관광지 삭제")
-    @ApiResponses({
-            @ApiResponse(responseCode = "400", description = "BAD REQUEST", content = @Content(
-                    mediaType = "application/json",
-                    examples = {
-                            @ExampleObject(name = "R0001", description = "관광지 정보를 조회할 수 없습니다. 다시 확인해 주세요.",
-                                    value = """
-                                            {"code": "R0001", "message": "관광지 정보를 조회할 수 없습니다. 다시 확인해 주세요."}
-                                            """)
-                    }, schema = @Schema(implementation = ErrorResponse.class)
-            ))
-    })
+    @ApiErrorCodeExample(ErrorCode.ATTRACTION_NOT_FOUND)
     @DeleteMapping("/{id}")
     public ResponseEntity<ProgressResponse<Long>> deleteAttraction(@PathVariable(value = "id") Long id) {
         return ResponseEntity.ok(attractionService.deleteAttraction(id));
