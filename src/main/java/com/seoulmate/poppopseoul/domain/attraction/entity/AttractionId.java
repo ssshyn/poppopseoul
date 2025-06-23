@@ -40,6 +40,10 @@ public class AttractionId {
     @ManyToMany(mappedBy = "attractionIds")
     private List<ChallengeId> challenges = new ArrayList<>();
 
+    public AttractionId(List<AttractionDetailCode> detailCodes) {
+        this.attractionDetailCodes = detailCodes;
+    }
+
     public static AttractionId toEntity(AttractionCreateRequest condition) {
         AttractionId attractionId = new AttractionId();
         attractionId.attractionDetailCodes = condition.getDetailCodes();

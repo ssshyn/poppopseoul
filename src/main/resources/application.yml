@@ -41,3 +41,11 @@ google:
 facebook:
   oauth:
     url: https://graph.facebook.com/me?fields=id,name,email&access_token=
+seoul:
+  url: http://openapi.seoul.go.kr:8088/
+  key: 6c597944706879753131345446576c72
+feign:
+  client:
+    configt:
+      default:
+        loggerLevel: FULL
