@@ -4,9 +4,12 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.seoulmate.poppopseoul.common.enumeration.LanguageCode;
 import com.seoulmate.poppopseoul.domain.attraction.dto.AttractionCreateRequest;
 import com.seoulmate.poppopseoul.domain.attraction.feign.dto.MountainParkResponse;
+import com.seoulmate.poppopseoul.domain.attraction.feign.dto.TourSpotResponse;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
+
+import java.util.Objects;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -74,13 +77,36 @@ public class AttractionInfo {
                 .build();
     }
 
-    public static AttractionInfo ofMountain(MountainParkResponse response) {
-        return AttractionInfo.builder()
-                .languageCode(LanguageCode.KOR)
-                .name(response.getName())
-                .address(response.getAddress())
-                .tel(response.getTel())
-                .subway(response.getSubway())
-                .build();
+    public static <T> AttractionInfo saveApiInfo(T item, AttractionId attractionId) {
+        Class<?> itemClass = item.getClass();
+        AttractionInfo attractionInfo = new AttractionInfo();
+
+        if (Objects.equals(itemClass, MountainParkResponse.class)) {
+            attractionInfo = new AttractionInfo((MountainParkResponse) item);
+        }
+        if (Objects.equals(itemClass, TourSpotResponse.class)) {
+            attractionInfo = new AttractionInfo((TourSpotResponse) item);
+        }
+
+        attractionInfo.setAttractionId(attractionId);
+        return attractionInfo;
+    }
+
+    public AttractionInfo(MountainParkResponse response) {
+        this.languageCode = LanguageCode.KOR;
+        this.name = response.getName();
+        this.address = response.getAddress();
+        this.tel = response.getTel();
+        this.subway = response.getSubway();
+    }
+
+    public AttractionInfo(TourSpotResponse response) {
+        this.languageCode = LanguageCode.KOR;
+        this.name = response.getName();
+        this.address = response.getAddress();
+        this.tel = response.getTel();
+        this.homepageUrl = response.getHompage();
+        this.subway = response.getSubway();
+        this.description = response.getDescription();
     }
 }

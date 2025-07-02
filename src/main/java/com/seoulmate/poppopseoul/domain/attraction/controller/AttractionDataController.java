@@ -1,7 +1,9 @@
 package com.seoulmate.poppopseoul.domain.attraction.controller;
 
 import com.seoulmate.poppopseoul.domain.attraction.service.AttractionDataService;
+import com.seoulmate.poppopseoul.exception.ErrorCode;
 import com.seoulmate.poppopseoul.exception.ErrorResponse;
+import com.seoulmate.poppopseoul.exception.annotation.ApiErrorCodeExamples;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -35,10 +37,11 @@ public class AttractionDataController {
 
     private final AttractionDataService attractionDataService;
 
-    @Operation(summary = "산과 공원 데이터 수집", description = "산과 공원 데이터 수집")
+    @Operation(summary = "서울 공공 API 데이터 수집", description = "서울 공공 API 데이터 수집")
+    @ApiErrorCodeExamples({ErrorCode.DATA_PROCESS_ERROR, ErrorCode.SEOUL_API_ERROR})
     @GetMapping
-    public ResponseEntity<Void> getList() {
-        attractionDataService.insertMountainPark();
+    public ResponseEntity<Void> getList() throws Exception {
+        attractionDataService.saveSeoulAttractionData();
         return ResponseEntity.ok().build();
     }
 }
