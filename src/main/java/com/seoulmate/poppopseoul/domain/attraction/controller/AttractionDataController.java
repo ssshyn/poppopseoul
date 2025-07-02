@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Tag(name = "공공 데이터 API", description = "공공 데이터 수집 API 목록")
+@Tag(name = "서울시 공공 데이터 API", description = "서울시 공공 데이터 수집 API 목록")
 @ApiResponses({
         @ApiResponse(responseCode = "200", description = "OK"),
         @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR", content = @Content(
