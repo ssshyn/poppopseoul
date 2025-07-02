@@ -23,7 +23,7 @@ public enum ErrorCode {
     /**
      * 유저 에러
      */
-    LOGIN_NOT_ACCESS(403, "U0001", "로그인이 필요한 서비스입니다. 로그인을 해주세요."),
+    LOGIN_NOT_ACCESS(403, "U0001", "로그인이 필요한 서비스입니다. 로그인해 주세요."),
     USER_NOT_FOUND(401, "U0002", "존재하지 않는 유저입니다."),
     PERMISSION_DENIED(400, "U0003", "수정 권한이 없습니다."),
 
@@ -36,17 +36,19 @@ public enum ErrorCode {
     ACCEESS_TOKEN_EXPIRED(403, "A0010", "만료된 엑세스 토큰입니다."),
     TOKEN_NOT_EXPIRED(403, "A0004", "아직 토큰이 만료되지 않았습니다."),
     INVALID_TOKEN(401, "A0005", "유효하지 않은 토큰입니다."),
-    UNAUTHENTICATED_USER(401, "A0006", "인증정보가 등록되지 않았습니다. 서버에 문의해주세요."),
+    UNAUTHENTICATED_USER(401, "A0006", "인증정보가 등록되지 않았습니다. 서버에 문의해 주세요."),
     FAIL_CREATE_REVOKE_TOKEN(500, "A0007", "revoke Token 생성에 실패했습니다."),
-    INVALID_REFRESH_TOKEN(401, "A0008", "유효하지 않은 refresh token입니다. 재로그인 해주세요."),
+    INVALID_REFRESH_TOKEN(401, "A0008", "유효하지 않은 refresh token입니다. 재로그인 해 주세요."),
     KEY_PARSING_ERROR(401, "A0009", "인증 키 파싱 중 오류가 발생하였습니다."),
 
     /**
      * 서버 에러
      */
     INVALID_DATA_FORMAT(400, "SY002", "잘못된 요청 데이터입니다."),
-    SERVER_ERROR(500, "SY001", "알 수 없는 에러가 발생했습니다. 서버에 문의해주세요."),
-    DUPLICATED_DATA(409, "SY003", "데이터 중복이 발생했습니다. 서버에 문의해주세요.");
+    SERVER_ERROR(500, "SY001", "알 수 없는 에러가 발생했습니다. 서버에 문의해 주세요."),
+    DUPLICATED_DATA(409, "SY003", "데이터 중복이 발생했습니다. 서버에 문의해 주세요."),
+    SEOUL_API_ERROR(500, "SY004", "공공데이터 조회 중 에러가 발생했습니다. 서버에 문의해 주세요."),
+    DATA_PROCESS_ERROR(500, "SY005", "데이터 처리 중 에러가 발생했습니다. 서버에 문의해 주세요.");
 
     private final int status;
     private final String code;
