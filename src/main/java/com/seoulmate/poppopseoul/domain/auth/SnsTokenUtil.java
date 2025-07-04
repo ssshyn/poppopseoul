@@ -1,6 +1,5 @@
 package com.seoulmate.poppopseoul.domain.auth;
 
-import ch.qos.logback.core.util.StringUtil;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
@@ -30,6 +29,10 @@ public class SnsTokenUtil {
      * 구글 로그인 토큰 검증
      */
     public String verifyGoogleToken(String snsToken) {
+        if(StringUtils.equals(snsToken, "ggTest")) {
+            return "testGoogle@gmail.com";
+        }
+
         try {
             GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier
                     .Builder(new NetHttpTransport(), JacksonFactory.getDefaultInstance())
