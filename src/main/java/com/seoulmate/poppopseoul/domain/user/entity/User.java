@@ -1,9 +1,16 @@
 package com.seoulmate.poppopseoul.domain.user.entity;
 
 import com.seoulmate.poppopseoul.common.enumeration.LoginType;
+import com.seoulmate.poppopseoul.domain.attraction.entity.AttractionLike;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -28,6 +35,18 @@ public class User {
     @Column(nullable = false)
     private String nickname;
 
+    @CreationTimestamp
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    @Column
+    private LocalDateTime modifiedAt;
+
+    // 관광지 찜 여부
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<AttractionLike> attractionLikes = new ArrayList<>();
+
 //    // 댓글 목록
 //    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 //    private List<Comment> comments = new ArrayList<>();
@@ -35,10 +54,6 @@ public class User {
 //    // 장소 스탬프
 //    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 //    private List<VisitStamp> visitStamps = new ArrayList<>();
-//
-//    // 관광지 찜 여부
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-//    private List<AttractionLikes> attractionLikes = new ArrayList<>();
 //
 //    // 챌린지 상태
 //    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)

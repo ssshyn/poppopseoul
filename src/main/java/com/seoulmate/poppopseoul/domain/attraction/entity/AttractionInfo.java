@@ -7,8 +7,11 @@ import com.seoulmate.poppopseoul.domain.attraction.feign.dto.MountainParkRespons
 import com.seoulmate.poppopseoul.domain.attraction.feign.dto.TourSpotResponse;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @NoArgsConstructor
@@ -55,6 +58,14 @@ public class AttractionInfo {
 
     @Column
     private String imageUrl;
+
+    @CreationTimestamp
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    @Column
+    private LocalDateTime modifiedAt;
 
     @ManyToOne
     @JoinColumn(name = "attraction_id")

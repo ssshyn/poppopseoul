@@ -5,7 +5,11 @@ import com.seoulmate.poppopseoul.common.enumeration.LanguageCode;
 import com.seoulmate.poppopseoul.domain.challenge.dto.ChallengeCreateRequest;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -35,6 +39,14 @@ public class ChallengeInfo {
 
     @Column
     private String mainLocation;
+
+    @CreationTimestamp
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    @Column
+    private LocalDateTime modifiedAt;
 
     @ManyToOne
     @JoinColumn(name = "challenge_id")

@@ -9,6 +9,7 @@ import com.seoulmate.poppopseoul.domain.attraction.service.AttractionService;
 import com.seoulmate.poppopseoul.exception.ErrorCode;
 import com.seoulmate.poppopseoul.exception.ErrorResponse;
 import com.seoulmate.poppopseoul.exception.annotation.ApiErrorCodeExample;
+import com.seoulmate.poppopseoul.exception.annotation.ApiErrorCodeExamples;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -86,10 +87,21 @@ public class AttractionController {
         return ResponseEntity.ok(attractionService.deleteAttraction(id));
     }
 
+    @Operation(summary = "관광지 좋아요 등록/취소", description = "관광지 좋아요 등록/취소")
+    @ApiErrorCodeExamples({ErrorCode.ATTRACTION_NOT_FOUND, ErrorCode.USER_NOT_FOUND, ErrorCode.LOGIN_NOT_ACCESS})
+    @PutMapping("/like")
+    public ResponseEntity<ProgressResponse<Long>> likeAttraction(@RequestParam(value = "id") Long id) {
+        return ResponseEntity.ok(attractionService.saveAttractionLike(id));
+    }
+
+    @Operation(summary = "좋아요한 목록 조회", description = "좋아요한 관광지 목록 조회")
+    @ApiErrorCodeExamples({ErrorCode.USER_NOT_FOUND, ErrorCode.LOGIN_NOT_ACCESS})
+    @GetMapping("/like")
+    public ResponseEntity<List<AttractionResponse>> getLikeAttractions(@RequestParam(value = "language") LanguageCode languageCode) {
+        return ResponseEntity.ok(attractionService.getLikeAttractions(languageCode));
+    }
 
     // -- 부가 --
-    // 좋아요한 목록 조회
-    // 좋아요 등록/취소
     // 관광지 스탬프 등록
 
 }

@@ -9,8 +9,11 @@ import com.seoulmate.poppopseoul.domain.challenge.enumeration.Level;
 import com.seoulmate.poppopseoul.domain.theme.entity.Theme;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +42,14 @@ public class ChallengeId {
     @JoinColumn(name = "theme_id")
     @JsonBackReference
     private Theme theme;
+
+    @CreationTimestamp
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    @Column
+    private LocalDateTime modifiedAt;
 
     @ManyToMany
     @JoinTable(
